@@ -37,9 +37,20 @@ app.use((req, res, next) => {
 // parse client requests ton json
 app.use(bodyParser.json())
 
+
 app.get("/", (req, res) => {
-  res.send("Express on Vercel");
+  res.send("Welcome to the IMC API. Go to the /api/imc");
 });
+
+/**
+ * Get all the IMC from the database for get requests to: 'api/imc'
+ */
+app.get('/api/imc', (req, res, next) => {
+	Imc.find()
+		.then(imcs => res.status(200).json(imcs))
+		.catch(error => res.status(400).json({ error }))
+})
+
 
 
 /**
